@@ -1,0 +1,49 @@
+<div class="mb-2 col w-100 d-flex justify-content-center">
+    <button type="button" class="col-10 btn btn-outline-primary" (click)="ajoutChamp()">
+      Ajouter un produit
+    </button>
+  
+  </div>
+  <form class="form-group mt-5" [formGroup]="form" (ngSubmit)="form.valid && onSubmit()">
+  
+    <div formArrayName="champ" class="d-flex col-12 justify-content-center align-items-center flex-column">
+  
+      <div *ngFor="let item of champ.controls; let i=index" >
+        <div [formGroupName]="i" class="row mb-5">
+  
+          <div class="d-flex col ml-3 flex-column justify-content-center">
+            <label class="col-2">Désignation</label>
+            <input class="form-control col" type="text" formControlName="designation" >
+          </div>
+
+          <div class="d-flex col ml-3 flex-column justify-content-center">
+            <label class="col-2">Prix/U</label>
+            <input class="form-control col" type="number" formControlName="prix">
+          </div>
+  
+          <div class="d-flex col ml-3 flex-column justify-content-center">
+            <label class="col-md-2">Stock</label>
+            <input class="form-control col" type="number" formControlName="stock">
+          </div>
+  
+          
+          <div class="d-flex col ml-3 flex-column justify-content-center">
+            <label class="col mt-3">Total du Stock HT</label>
+            <input class="form-control col" readonly="readonly"
+              value="{{form.get('champ').value[i].stock * form.get('champ').value[i].prix}} €">
+          </div>
+          <button class="btn btn-danger" (click)="suppChamp(i)">Supprimer</button>
+        </div>
+      </div>
+    </div>
+
+    <p class="d-flex justify-content-center" *ngIf="champ.controls.length > 0">
+      <button class="btn btn-primary" [disabled]="!form.valid"  type="submit">Enregistrer mes produits</button>
+    </p>
+    <span>{{messageError}}</span>
+  </form>
+  <hr class="divider margin">
+  <hr class="divider margin">
+  
+  
+  {{this.form.value | json}}

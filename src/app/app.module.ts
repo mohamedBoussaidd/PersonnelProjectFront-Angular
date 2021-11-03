@@ -1,18 +1,45 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
+import { NavComponent } from './nav/nav.component';
+import { FormConnexionComponent } from './CoterDeconnecter/form-connexion/form-connexion.component';
+import { ProfilComponent } from './CoterConnecter/profil/profil.component';
+import { RouterModule} from '@angular/router';
+import { ROUTES } from './app.routes';
+import { InscriptionComponent } from './CoterDeconnecter/inscription/inscription.component';
+import { NouscontacterComponent } from './CoterDeconnecter/nouscontacter/nouscontacter.component'
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+import { LogInterceptor } from './LogInterceptor';
+import { FormFactureComponent } from './CoterConnecter/form-facture/form-facture.component';
+import { FactureViewComponent } from './CoterConnecter/facture-view/facture-view.component';
+import { MesProduitsComponent } from './CoterConnecter/mes-produits/mes-produits.component';
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NavComponent,
+    FormConnexionComponent,
+    ProfilComponent,
+    InscriptionComponent,
+    NouscontacterComponent,
+    FormFactureComponent,
+    FactureViewComponent,
+    MesProduitsComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    RouterModule.forRoot( ROUTES ),
+    HttpClientModule,
+    ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LogInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

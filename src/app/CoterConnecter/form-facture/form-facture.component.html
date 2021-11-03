@@ -1,0 +1,80 @@
+<div class="mb-2 col w-100 d-flex justify-content-center">
+  <button type="button" class="col-10 btn btn-outline-primary" (click)="ajoutChamp()">
+    Ajouter un produit
+  </button>
+
+</div>
+<form class="form-group mt-5" [formGroup]="form" (ngSubmit)="form.valid && onSubmit()">
+
+  <div formArrayName="champ" class="d-flex col-12 justify-content-center align-items-center flex-column">
+
+    <div *ngFor="let item of champ.controls; let i=index">
+      <div [formGroupName]="i" class="row mb-5">
+
+        <div class="d-flex col ml-3 flex-column justify-content-center">
+          <label class="col-2">Désignation</label>
+          <input class="form-control col" type="text" formControlName="designation">
+        </div>
+
+        <div class="d-flex col ml-3 flex-column justify-content-center">
+          <label class="col-md-2">Quantité</label>
+          <input class="form-control col" type="number" formControlName="quantite">
+        </div>
+
+        <div class="d-flex col ml-3 flex-column justify-content-center">
+          <label class="col-2">Prix/U</label>
+          <input class="form-control col" type="number" formControlName="prixUnitaireHT">
+        </div>
+
+        <div class="d-flex col ml-3 flex-column justify-content-center">
+          <label class="col-2 mt-3">Total HT</label>
+          <input class="form-control col" readonly="readonly"
+            value="{{form.get('champ').value[i].quantite * form.get('champ').value[i].prixUnitaireHT}} €">
+        </div>
+        <button type="button" class="btn btn-success" [disabled]="!form.valid" (click)="validLigne(i)">Valider mon article</button>
+        <button class="btn btn-danger" (click)="suppChamp(i)">Supprimer</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-around" *ngFor="let item of tableauLigneDeFacture">
+    <div class="column">
+      <label for="">Designation</label>
+      <p>{{item.designation}}</p>
+    </div>
+    <div class="column">
+      <label for="">Quantiter</label>
+      <p>{{item.quantite}}</p>
+    </div>
+    <div class="column">
+      <label for="">Prix HT</label>
+      <p>{{item.prix }} €</p>
+    </div>
+    <div class="column">
+      <label for="">Total HT</label>
+      <p>{{item.prix }} €</p>
+    </div>
+    <div class="column">
+      <label for="">Total TTC</label>
+      <p>{{item.prixTTC }} €</p>
+    </div>
+    <div class="column">
+      <label for="">TVA</label>
+      <p>20% €</p>
+    </div>
+  </div>
+  <div *ngIf="champ.controls.length > 0">
+    Total TTC:{{totalFactureTTC}}
+  </div>
+
+  <p class="d-flex justify-content-center" *ngIf="champ.controls.length > 0">
+
+    <button class="btn btn-primary" [disabled]="!form.valid" type="submit">Valider ma facture</button>
+  </p>
+
+</form>
+<hr class="divider margin">
+<hr class="divider margin">
+
+
+{{this.form.value | json}}

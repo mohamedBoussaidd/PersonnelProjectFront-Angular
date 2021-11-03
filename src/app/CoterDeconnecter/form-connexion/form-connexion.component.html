@@ -1,0 +1,33 @@
+<section class="section">
+    <div class="container-fluid col-12 center">
+        <p class="container col-3 center mt-4">
+            je souhaite
+            <a [routerLink]="['/inscription']">m'inscrire</a>
+        </p>
+    </div>
+    <form (ngSubmit)="form.valid && onSubmit()" class="container-fluid h-100" class="container-fluid h-100"
+        [formGroup]="form">
+        <div class="container center col-3">
+            <h1 class="h2 mb-3">CONNEXION</h1>
+        </div>
+        <div class="form-floating col-3 mb-4 container center">
+            <input type="email" class="form-control" id="floatingInput" placeholder="Votre email"
+                formControlName="email" />
+        </div>
+        <div class="form-floating col-3 mb-4 container center">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Mot de passe"
+                formControlName="motdepasse" />
+        </div>
+
+        <div class="checkbox col-3 mb-3 container center">
+            <input class="mr-2" type="checkbox" value="remember-me" />
+            <font style="vertical-align: inherit">Se souvenir de moi</font>
+        </div>
+        <div class="col-3 container center">
+            <button class="btn btn-lg btn-primary" type="submit">
+                <font style="vertical-align: inherit">S'identifier</font>
+            </button>
+        </div>
+        <span>{{messageError}}</span>
+    </form>
+</section>

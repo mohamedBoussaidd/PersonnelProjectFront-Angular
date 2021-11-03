@@ -1,0 +1,171 @@
+<!-- INSCRIPTION -->
+<div class="mx-auto" style="width: 500px">
+    <form (ngSubmit)="monFormulaire.valid && aLaSoumission()" [formGroup]="monFormulaire" class="container-fluid h-100">
+        <div class="form">
+            <h2 class="text-center mt-4 mb-4">INSCRIPTION</h2>
+            <!-- NOM INSCRIPTION -->
+            <div class="form-floating col-10 mb-4 container center">
+                <input class="form-control text-center" type="text" formControlName="nomInscription" name="nom-inscription" placeholder="Nom" [ngClass]="{
+            'is-invalid':
+              monFormulaire.get('nomInscription').touched &&
+              monFormulaire.get('nomInscription').errors
+          }" />
+                <div *ngIf="
+            !monFormulaire.get('nomInscription').valid &&
+            (monFormulaire.get('nomInscription').dirty ||
+              monFormulaire.get('nomInscription').touched)
+          " class="invalid-feedback text-center">
+                    <span *ngIf="monFormulaire.get('nomInscription').errors.required">le nom est requis</span
+          >
+          <span *ngIf="monFormulaire.get('nomInscription').errors.minlength"
+            >le minimum de caractére est de 3</span
+          >
+          <span *ngIf="monFormulaire.get('nomInscription').errors.maxlength"
+            >le maximum de caractére est de 30</span
+          >
+        </div>
+      </div>
+      <!-- PRENOM INSCRIPTION -->
+      <div class="form-floating col-10 mb-4 container center">
+        <input
+          class="form-control col-12 text-center"
+          type="text "
+          formControlName="prenomInscription"
+          name="prenom-inscription "
+          placeholder=" Prenom "
+          [ngClass]="{
+            ' is-invalid ':
+              monFormulaire.get('prenomInscription').touched &&
+              monFormulaire.get('prenomInscription').errors
+          }"
+        />
+        <div
+          *ngIf="
+            !monFormulaire.get('prenomInscription').valid &&
+            (monFormulaire.get('prenomInscription').dirty ||
+            monFormulaire.get('prenomInscription').touched)
+          "
+          class="invalid-feedback text-center"
+        >
+          <span *ngIf="monFormulaire.get('prenomInscription').errors.required"
+            >le prenom est requis</span
+          >
+          <span *ngIf="monFormulaire.get('prenomInscription').errors.minlength"
+            >le minimum de caractére est de 3</span
+          >
+          <span *ngIf="monFormulaire.get('prenomInscription').errors.maxlength"
+            >le maximum de caractére est de 30</span
+          >
+        </div>
+      </div>
+      <!-- EMAIL INSCRIPTION -->
+      <div class="form-floating col-10 mb-4 container center">
+        <input
+          class="form-control text-center"
+          type="email "
+          formControlName="emailInscription"
+          name="email-inscription "
+          placeholder="Email "
+          [ngClass]="{
+            ' is-invalid ':
+              monFormulaire.get('emailInscription').touched &&
+              monFormulaire.get('emailInscription').errors
+          }"
+        />
+        <div
+          *ngIf="
+            !monFormulaire.get('emailInscription').valid &&
+            (monFormulaire.get('emailInscription').dirty ||
+              monFormulaire.get('emailInscription').touched)
+          "
+          class="invalid-feedback text-center"
+        >
+          <span *ngIf="monFormulaire.get('emailInscription').errors.required"
+            >l'email est requis</span
+          >
+          <span *ngIf="monFormulaire.get('emailInscription').errors.email"
+            >le format de l'email indiquer n'est pas correcte</span
+          >
+        </div>
+      </div>
+      <!-- MDP INSCRIPTON -->
+      <div class="form-floating col-10 mb-4 container center">
+        <input
+          class="form-control text-center"
+          type="password"
+          formControlName="mdpInscription"
+          name="mdp-inscription "
+          placeholder="Mot de passe "
+          [ngClass]="{
+            ' is-invalid ':
+              monFormulaire.get('mdpInscription').touched &&
+              monFormulaire.get('mdpInscription').errors
+          }"
+        />
+        <div
+          *ngIf="
+            !monFormulaire.get('mdpInscription').valid &&
+            (monFormulaire.get('mdpInscription').dirty ||
+            monFormulaire.get('mdpInscription').touched)
+          "
+          class="invalid-feedback text-center"
+        >
+          <span *ngIf="monFormulaire.get('mdpInscription').errors.required"
+            >le mot de passe est requis</span
+          >
+          <span *ngIf="monFormulaire.get('mdpInscription').errors.minlength"
+            >le minimum de caractére est de 4</span
+          >
+        </div>
+      </div>
+
+      <!-- CONFIRMATION MDP -->
+      <div class="form-floating col-10 mb-4 container center">
+        <input
+          class="form-control text-center"
+          type="password"
+          formControlName="confirmMdp"
+          name="mdp2-inscription "
+          placeholder="Confirmer votre mot de passe "
+          [ngClass]="{
+            ' is-invalid ':
+              monFormulaire.get('confirmMdp').touched &&
+              monFormulaire.get('confirmMdp').errors
+          }"
+        />
+        <div
+          *ngIf="
+            !monFormulaire.get('confirmMdp').valid &&
+            (monFormulaire.get('confirmMdp').dirty ||
+              monFormulaire.get('confirmMdp').touched)
+          "
+          class="invalid-feedback text-center"
+        >
+          <span *ngIf="monFormulaire.get('confirmMdp').errors.required"
+            >le mot de passe de confirmation est requis
+          </span>
+                    <span *ngIf="monFormulaire.get('confirmMdp').errors.minlength">le minimum de caractére est de 4</span
+          >
+          <span
+            *ngIf="!monFormulaire.get('confirmMdp').errors.verificationMatch"
+            >le mot de passe de confirmation est different de votre mot de passe</span
+          >
+        </div>
+      </div>
+      <span>
+        {{messageErrorOuReussi}}
+      </span>
+      <!-- BOUTON DE VALIDATION -->
+      <div class="form-floating col-10 mb-4 container text-right">
+        <button
+          class="btn btn-info col-4"
+          [disabled]="!monFormulaire.valid"
+          name="soumisInscription"
+          type="submit"
+        >
+          M'inscrire
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
