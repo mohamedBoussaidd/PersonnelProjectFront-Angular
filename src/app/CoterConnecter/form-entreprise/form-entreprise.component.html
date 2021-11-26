@@ -1,0 +1,36 @@
+<section class="section">
+   
+    <form (ngSubmit)="form.valid && onSubmit()" class="container-fluid h-100" 
+        [formGroup]="form">
+        <div class="container center col-3">
+            <h1 class="h2 mb-3">ENTREPRISES</h1>
+        </div>
+        <div class="form-floating col-3 mb-4 container center">
+            <input type="text" class="form-control" id="floatingInput" placeholder="Le Nom de votre entreprise"
+                formControlName="nom" />
+        </div>
+        <div class="form-floating col-3 mb-4 container center">
+            <input type="email" class="form-control" id="floatingInput" placeholder="L'email de votre entreprise"
+                formControlName="email" />
+        </div>
+        <div class="form-floating col-3 mb-4 container center">
+            <input type="text" class="form-control" id="floatingPassword" placeholder="Adresse de votre entreprise"
+                formControlName="adresse" />
+        </div>
+        <div class="form-floating col-3 mb-4 container center">
+            <input type="text" class="form-control" id="floatingPassword" placeholder="Numero de telephone de votre entreprise"
+                formControlName="numero" />
+        </div>
+        <div class="form-floating col-3 mb-4 container center">
+            <textarea type="text" class="form-control" id="floatingPassword" placeholder="Decrivez nous votre entreprise"
+                formControlName="description" ></textarea>
+        </div>
+        <div class="col-3 container center">
+            <button class="btn btn-lg btn-primary" [disabled]="!form.valid">
+                <font style="vertical-align: inherit">Enregistrer</font>
+            </button>
+        </div>
+    </form>
+    <span>{{messageError}}</span>
+
+</section>

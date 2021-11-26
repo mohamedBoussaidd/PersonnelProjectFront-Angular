@@ -13,11 +13,16 @@ export class MesProduitsComponent implements OnInit {
   public form: FormGroup;
   public formClient: any;
   public tableauProduits: ProduitEnregistrer[] = []
+  public listProduits: ProduitEnregistrer[] = []
   public messageError: string;
-  constructor(private fb: FormBuilder,private serviceProduit:ServiceProduit) {
+  constructor(private fb: FormBuilder, private serviceProduit: ServiceProduit) {
     this.initForm();
   }
   ngOnInit() {
+
+    // this.serviceProduit.getProduit().subscribe((param) => {
+    //   this.listProduits = param;
+    // });
   }
 
   public initForm() {
@@ -71,22 +76,16 @@ export class MesProduitsComponent implements OnInit {
         this.tableauProduits.push(produit1)
       }
     }
-    console.log(this.tableauProduits);
-    this.serviceProduit.enregistrerProduits(this.tableauProduits).subscribe((param:any)=>{
-      console.log(param);
-    });
+    // this.serviceProduit.enregistrerProduits(this.tableauProduits).subscribe((param: any) => {
+    //   this.messageError = param.message;
+    // }, (err) => {
+    //   this.messageError = err.error.message;
+    // });
+    // this.serviceProduit.getProduit().subscribe((param) => {
+    //   this.listProduits = param;
+    // });
   }
 }
-  //console.log(this.tableauProduits)
-
-/*   //ON RENITIALISE LE TOTAL DE FACTURE TTC
-this.totalFactureTTC = 0;
-//ON CALCULE LE TOTAL DE LA FACTURE EN TTC
-for (let i = 0; i < this.tableauProduits.length; i++) {
-const element = this.tableauProduits[i];
-this.totalFactureTTC = this.totalFactureTTC+element.prix
-} */
-
 
 
 

@@ -1,3 +1,5 @@
+import { GererEntrepriseComponent } from './CoterConnecter/gerer-entreprise/gerer-entreprise.component';
+import { FormEntrepriseComponent } from './CoterConnecter/form-entreprise/form-entreprise.component';
 import { MesProduitsComponent } from './CoterConnecter/mes-produits/mes-produits.component';
 import { GuardUserGuard } from './Guard/guard-user.guard';
 import { NouscontacterComponent } from './CoterDeconnecter/nouscontacter/nouscontacter.component';
@@ -15,5 +17,7 @@ export const ROUTES: Routes = [
   { path: 'activation', component: ActivationComponent },
   { path: 'formFacture', component: FormFactureComponent, canActivate: [GuardUserGuard] },
   { path: 'mesProduits', component: MesProduitsComponent,  canActivate: [GuardUserGuard] },
+  { path: 'entreprise', component: FormEntrepriseComponent,  canActivate: [GuardUserGuard] },
+  { path: 'GererEntreprise', component: GererEntrepriseComponent,  canActivate: [GuardUserGuard] },
   { path: '', component: FormConnexionComponent },
 ];
