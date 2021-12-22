@@ -1,6 +1,10 @@
 export class Entreprise {
 
-
+    public name:string;
+    public adress:string;
+    public email :string;
+    public number :string;
+    public description:string;
   constructor(
     name: string, 
     adress: string, 
@@ -14,11 +18,7 @@ export class Entreprise {
     this.number = number
     this.description = description
   }
-    public name:string;
-    public adress:string;
-    public email :string;
-    public number :string;
-    public description:string;
+  
 
   
 }

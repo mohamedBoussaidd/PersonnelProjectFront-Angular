@@ -26,6 +26,6 @@ export class ServiceEntreprise {
     }
     // RECUPERATION D'UNE ETREPRISE PAR L'ID
     public getEntreprise(entrepriseId :number):Observable<any>{
-        return this.http.get(this.urlBack + "entrepriseById?idEntreprise=" + entrepriseId)
+        return this.http.get(this.urlBack + `entrepriseById/${entrepriseId}`)
     }
 }

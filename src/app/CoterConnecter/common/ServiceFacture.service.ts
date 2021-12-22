@@ -25,8 +25,9 @@ export class ServiceFacture {
         console.log(facture)
         let numeroFacture = facture.numeroFacture
         let produit :any[] = facture.produit
+        let nomClient : string = facture.nomClient
         
-        return this.http.post<Facture>(this.urlBack + "enregistrerFacture", { numeroFacture, produit }, this.httpOptions);
+        return this.http.post<Facture>(this.urlBack + "enregistrerFacture", { numeroFacture, produit, nomClient }, this.httpOptions);
 
         //il faut un numeroFacture
         //il faut un tableau de produit avec le nom produit

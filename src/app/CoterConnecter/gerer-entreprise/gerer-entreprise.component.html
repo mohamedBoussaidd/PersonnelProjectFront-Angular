@@ -1,57 +1,85 @@
-<div class=" d-flex flex-column col">
-    <div class="justify-content-around row">
+<div class=" d-flex flex-column col bg-light">
+     <!-- L'ENTREPRISE -->
+     <div class="list-group col bg-light">
+        <li class="list-group-item d-flex bg-info text-white justify-content-center align-items-center">
+            ENTREPRISE
+        </li>
+        <li class="list-group-item d-flex justify-content-center align-items-center">
+            {{entreprise.name | uppercase}}
+        </li>
+        <li class="list-group-item d-flex justify-content-center align-items-center">
+            {{entreprise.adress}}
+        </li>
+        <li class="list-group-item d-flex justify-content-center align-items-center">
+            {{entreprise.number}}
+        </li>
+        <li class="list-group-item d-flex justify-content-center align-items-center">
+            {{entreprise.email}}
+        </li>
+    </div>
+    <div class="justify-content-around row mt-5">
+        <!-- LES PRODUITS -->
         <ul class="list-group col">
             <li class="list-group-item bg-info d-flex text-white justify-content-center align-items-center">
                 PRODUITS
             </li>
             <div *ngFor="let item of listProduits">
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    {{item.designation}}
-                    <span class="badge bg-info rounded-pill">{{item.stock}}</span>
-                    <span class="badge rounded-pill">{{item.prix | currency :'EUR':'€'}}/Unité</span>
+                    <span class="badge text-left col">{{item.designation | uppercase}}</span>
+                    <span class="badge text-left rounded-pill col">{{item.stock}}</span>
+                    <span class="badge text-left rounded-pill col">{{item.prix | currency :'EUR':'€'}}/Unité</span>
                 </li>
             </div>
+            <div class="d-flex flex-row mt-3 ">
+                <button type="button" class="col-4 btn btn-info " (click)="ajoutChampProduit()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="40" fill="currentColor" class="bi bi-bookmark-plus" viewBox="0 0 16 16">
+                        <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+                        <path d="M8 4a.5.5 0 0 1 .5.5V6H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V7H6a.5.5 0 0 1 0-1h1.5V4.5A.5.5 0 0 1 8 4z"/>
+                      </svg>
+                <span class="ml-2 align-items-center">Ajouter</span>
+                </button>
+        
+            </div>
         </ul>
-        <div class="list-group col">
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                {{entreprise.name}}
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                {{entreprise.adress}}
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                {{entreprise.number}}
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                {{entreprise.email}}
-            </li>
-        </div>
-        <ul class="list-group col">
+       
+        <ul class="list-group col-3">
             <li class="list-group-item d-flex bg-info text-white justify-content-center align-items-center">
                 CLIENTS
             </li>
-            <div *ngFor="let item of listClients">
-                <li class="list-group-item d-flex  justify-content-between align-items-center">
-                    {{item.nom}}
-                    <span class="badge rounded-pill">{{item.email}}</span>
-                    <span class="badge rounded-pill">{{item.numero}}</span>
-                    <span class="badge rounded-pill">{{item.adresse}}</span>
-                </li>
+            <!-- LES CLIENTS -->
+            <div *ngFor="let item of listClients; let i = index">
+                
+                   
+                    <li class="list-group-item d-flex  justify-content-between align-items-center">
+                        
+                        <span class="badge col-9 border border-primary">{{item.nom | uppercase}}</span>
+                      
+                       <button *ngIf="!displayMenu" class="btn-info col-2  border border-primary"(click)=displayDetail(item)>Plus</button>
+                       
+                    </li>
             </div>
+            <div class="d-flex flex-row m-5">
+                <button type="button" class="col-8 btn btn-info d-flex flex-row justify-content-start" (click)="ajoutChampClient()">
+                    
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="40" fill="currentColor" class="bi bi-bookmark-plus" viewBox="0 0 16 16">
+                        <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+                        <path d="M8 4a.5.5 0 0 1 .5.5V6H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V7H6a.5.5 0 0 1 0-1h1.5V4.5A.5.5 0 0 1 8 4z"/>
+                      </svg>
+                <span class="ml-2 align-items-center">Ajouter</span>
+                    
+                </button>
+
+            </div>
+            
         </ul>
 
     </div>
-    <div>
+    <div class="">
         <div class="mb-2  col d-flex justify-content-around ">
+            
 
             <!-- AJOUT DE PRODUITS -->
             <div class="d-flex flex-column col">
-                <div class="d-flex flex-row m-2">
-                    <button type="button" class="col-10 btn btn-info" (click)="ajoutChampProduit()">
-                        Ajouter un produit
-                    </button>
-
-                </div>
                 <div class=" ml-2">
                     <form class="form-group mt-5" [formGroup]="form" (ngSubmit)="form.valid && onSubmit()">
                         <div formArrayName="champ"
@@ -90,13 +118,8 @@
             <div class="list-group col"></div>
 
             <!-- AJOUT DE CLIENTS -->
-            <div class=" d-flex flex-column col">
-                <div class="d-flex flex-row m-2">
-                    <button type="button" class="col-10 btn btn-info" (click)="ajoutChampClient()">
-                        Ajouter un client
-                    </button>
-
-                </div>
+          
+            <div class=" d-flex flex-column col ">
                 <div class=" ml-2">
                     <form class="form-group mt-5" [formGroup]="form" (ngSubmit)="form.valid && onSubmit()">
                         <div formArrayName="champClient"
@@ -135,3 +158,24 @@
         </div>
     </div>
 </div>
+<div *ngIf="displayDetails" class="col-12">
+    <div class="list-group d-flex flex-row col-12 ">
+        <li class="list-group-item d-flex col justify-content-around align-items-center">
+            <span>{{clientDetail.nom}}</span>
+
+            <span>{{clientDetail.numero}}</span>
+
+            <span>{{clientDetail.adresse}}</span>
+        </li>
+        
+    </div>
+</div>
+
+<div class="d-flex justify-content-around mb-5" >                     
+    <button class="btn btn-info" (click)="displayFormFacture()">Envoyer une facture</button>
+    <button class="btn btn-info">Envoyer un email</button>
+</div>
+<!-- <button class="btn btn-info" (click)="telecharger()">par requette</button> -->
+<a href="http://localhost:8080/pdf/getPdf" class="btn btn-info mb-5" target="blank" >telecharger la facture</a>
+
+<app-form-facture *ngIf="formFacture"></app-form-facture>

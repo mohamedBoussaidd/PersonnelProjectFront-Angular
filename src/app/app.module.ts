@@ -14,7 +14,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LogInterceptor } from './LogInterceptor';
 import { FormFactureComponent } from './CoterConnecter/form-facture/form-facture.component';
 import { FactureViewComponent } from './CoterConnecter/facture-view/facture-view.component';
-import { MesProduitsComponent } from './CoterConnecter/mes-produits/mes-produits.component';
 import { FormEntrepriseComponent } from './CoterConnecter/form-entreprise/form-entreprise.component';
 import { GererEntrepriseComponent } from './CoterConnecter/gerer-entreprise/gerer-entreprise.component';
 @NgModule({
@@ -27,7 +26,6 @@ import { GererEntrepriseComponent } from './CoterConnecter/gerer-entreprise/gere
     NouscontacterComponent,
     FormFactureComponent,
     FactureViewComponent,
-    MesProduitsComponent,
     FormEntrepriseComponent,
     GererEntrepriseComponent
   ],

@@ -1,0 +1,15 @@
+.mon-menu span
+{
+	background-color: transparent;
+	padding:6px;
+	display:block;
+	width:20%;
+	margin:10px;
+	border-radius:5px;
+}
+.mon-menu
+{
+	background-color:transparent;
+	border:3px solid transparent;
+	display:none;
+}

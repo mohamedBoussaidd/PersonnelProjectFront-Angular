@@ -1,8 +1,20 @@
-<div class="mb-2 col w-100 d-flex justify-content-center">
-  <button type="button" class="col-10 btn btn-outline-primary" (click)="ajoutChamp()">
+<form class="form-group mt-5" [formGroup]="formChoixClient" (ngSubmit)="formChoixClient.valid && onSubmit()">
+  <div class="mb-2 col-6 w-100 d-flex flex-column justify-content-center">
+    <button type="button" class="col-10 btn btn-info">
+      Selectionner le client
+    </button>
+    <select class="btn btn-outline-primary col-10 border border-primary" formControlName="clientChoisi"
+    (change)="getClient(formChoixClient.get('clientChoisi').value)">
+      <option *ngFor="let item of client;let i=index" >
+        {{item.nom | uppercase}}
+      </option>
+    </select>
+  </div>
+</form>
+<div class="mb-2 col-6 w-100 d-flex mt-3 ">
+  <button type="button" class="col-10 btn btn-info" (click)="ajoutChamp()">
     Ajouter un produit
   </button>
-
 </div>
 <form class="form-group mt-5" [formGroup]="form" (ngSubmit)="form.valid && onSubmit()">
 
@@ -13,7 +25,10 @@
 
         <div class="d-flex col ml-3 flex-column justify-content-center">
           <label class="col-2">Désignation</label>
-          <input class="form-control col" type="text" formControlName="designation">
+          <select class="form-control col" type="text" formControlName="designation"
+            (change)="getPrice(form.get('champ').value[i].designation,i)">
+            <option *ngFor="let prod of produit">{{prod.designation| uppercase}}</option>
+          </select>
         </div>
 
         <div class="d-flex col ml-3 flex-column justify-content-center">
@@ -31,7 +46,8 @@
           <input class="form-control col" readonly="readonly"
             value="{{form.get('champ').value[i].quantite * form.get('champ').value[i].prixUnitaireHT}} €">
         </div>
-        <button type="button" class="btn btn-success" [disabled]="!form.valid" (click)="validLigne(i)">Valider mon article</button>
+        <button type="button" class="btn btn-info" [disabled]="!form.valid" (click)="validLigne(i)">Valider mon
+          article</button>
         <button class="btn btn-danger" (click)="suppChamp(i)">Supprimer</button>
       </div>
     </div>
@@ -40,7 +56,7 @@
   <div class="row justify-content-around" *ngFor="let item of tableauLigneDeFacture">
     <div class="column">
       <label for="">Designation</label>
-      <p>{{item.designation}}</p>
+      <p>{{item.designation | uppercase}}</p>
     </div>
     <div class="column">
       <label for="">Quantiter</label>
@@ -52,11 +68,11 @@
     </div>
     <div class="column">
       <label for="">Total HT</label>
-      <p>{{item.prix }} €</p>
+      <p>{{item.quantite * item.prix }} €</p>
     </div>
     <div class="column">
       <label for="">Total TTC</label>
-      <p>{{item.prixTTC }} €</p>
+      <p>{{item.quantite * item.prix * 1.2 }} €</p>
     </div>
     <div class="column">
       <label for="">TVA</label>

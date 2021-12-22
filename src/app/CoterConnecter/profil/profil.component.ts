@@ -29,7 +29,7 @@ export class ProfilComponent implements OnInit {
     this.router.navigate(['entreprise']);
   }
   public naviguer(i:number){
-     // par defaut, on enlève un potentiel Token existant
+     // par defaut, on enlève un potentiel id d'entreprise present
      window.sessionStorage.removeItem("idEntreprise");
      // on enregistre celui qu'on veut conserver
      window.sessionStorage.setItem("idEntreprise", i.toString());
