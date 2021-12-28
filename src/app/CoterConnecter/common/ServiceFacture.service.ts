@@ -21,16 +21,21 @@ export class ServiceFacture {
 
     }
 
-    public enregistrerFacture(facture:Facture): Observable<any> {
+    public enregistrerFacture(facture:Facture, idEntreprise:number): Observable<any> {
         console.log(facture)
         let numeroFacture = facture.numeroFacture
         let produit :any[] = facture.produit
         let nomClient : string = facture.nomClient
         
-        return this.http.post<Facture>(this.urlBack + "enregistrerFacture", { numeroFacture, produit, nomClient }, this.httpOptions);
+        return this.http.post<Facture>(this.urlBack + `enregistrerFacture/${idEntreprise}`, facture, this.httpOptions);
 
         //il faut un numeroFacture
         //il faut un tableau de produit avec le nom produit
         // dans le produit doit i avoir une designation un prix une quantite
     }
+    public getAllFacture(idEntreprise:number ):Observable<any>{
+
+        return this.http.get(this.urlBack + `AllFactures/${idEntreprise}`);
+    }
+    
 }

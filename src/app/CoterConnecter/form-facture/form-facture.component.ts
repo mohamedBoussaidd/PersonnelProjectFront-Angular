@@ -31,13 +31,21 @@ export class FormFactureComponent {
     this.initFormClient();
   }
   public entreprise: Entreprise;
-  public client: ClientEnregistrer[]=[];
+  public client: ClientEnregistrer[]=[new ClientEnregistrer('-','','','')];
   public produit: ProduitEnregistrer[]=[];
+  public idEntreprise : number;
+
   ngOnInit() {
 
     this.entreprise = JSON.parse(window.sessionStorage.getItem("entreprise"))
-    this.client = JSON.parse(window.sessionStorage.getItem("clientEntreprise"))
+    for (let i = 0; i < JSON.parse(window.sessionStorage.getItem("clientEntreprise")).length; i++) {
+      const element = JSON.parse(window.sessionStorage.getItem("clientEntreprise"))[i];
+      this.client.push(element)
+      
+    }
     this.produit = JSON.parse(window.sessionStorage.getItem("produitEntreprise"))
+    this.idEntreprise = JSON.parse(window.sessionStorage.getItem("idEntreprise"))
+
     console.log(this.entreprise,this.client,this.produit)
 
   }
@@ -45,7 +53,7 @@ export class FormFactureComponent {
 
   public initFormClient() {
     this.formChoixClient = this.fb.group({
-      clientChoisi: [[]]
+      clientChoisi: ['-',[]]
     })
   }
   public initForm() {
@@ -128,6 +136,7 @@ export class FormFactureComponent {
     }
   }
   public getClient( client: string){
+    console.log(client)
     this.nomClientSelectionner= client;
   }
   //VALIDIATION ET ENREGISTREMENT DE LA FACTURE
@@ -137,7 +146,7 @@ export class FormFactureComponent {
     console.log(facture)
     console.log(this.nomClientSelectionner)
     console.log(facture)
-    this.factureService.enregistrerFacture(facture)
+    this.factureService.enregistrerFacture(facture,this.idEntreprise)
       .subscribe((param: any) => {
         console.log(param)
       })

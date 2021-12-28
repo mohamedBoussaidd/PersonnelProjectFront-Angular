@@ -33,7 +33,6 @@ export class ProfilComponent implements OnInit {
      window.sessionStorage.removeItem("idEntreprise");
      // on enregistre celui qu'on veut conserver
      window.sessionStorage.setItem("idEntreprise", i.toString());
-     console.log(window.sessionStorage.getItem("idEntreprise"))
      this.router.navigate(['GererEntreprise']);
   }
 }

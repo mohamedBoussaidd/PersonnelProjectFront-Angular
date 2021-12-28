@@ -1,3 +1,4 @@
+import { ServiceFacture } from './../common/ServiceFacture.service';
 import { ServicePdf } from './../common/ServicePdf';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ServiceClient } from './../common/ServiceClient';
@@ -8,6 +9,8 @@ import { ServiceEntreprise } from '../common/ServiceEntreprise';
 import { ProduitEnregistrer } from 'src/app/models/ProduitEnregistrer';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ServiceProduit } from '../common/ServiceProduit.service';
+import { Facture } from 'src/app/models/Facture';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-gerer-entreprise',
@@ -17,7 +20,7 @@ import { ServiceProduit } from '../common/ServiceProduit.service';
 export class GererEntrepriseComponent implements OnInit {
 
   constructor(private serviceEntreprise: ServiceEntreprise, private fb: FormBuilder, private serviceProduit: ServiceProduit, private serviceClient: ServiceClient, private http:HttpClient,
-    private servicePdf : ServicePdf) {
+    private servicePdf : ServicePdf,private router :Router, private serviceFacture :ServiceFacture) {
     this.initForm();
 
   }
@@ -28,9 +31,10 @@ export class GererEntrepriseComponent implements OnInit {
   public tableauClients: ClientEnregistrer[] = []
   public listProduits: ProduitEnregistrer[] = []
   public listClients: ClientEnregistrer[] = []
+  public listFactures: Facture[] = []
   public messageErrorProduit: string;
   public messageErrorClient: string;
-  public entreprise: Entreprise;
+  public entreprise: any;
   public idEntreprise : number;
   public displayDetails :boolean = false ;
   public displayMenu :boolean = false ;
@@ -39,40 +43,48 @@ export class GererEntrepriseComponent implements OnInit {
 
   ngOnInit(): void {
    
-    console.log(JSON.parse(window.sessionStorage.getItem("idEntreprise")))
+    // ON RECUPERE L 'ID DE L'ENTREPRISE EN CHOISI
     this.idEntreprise = JSON.parse(window.sessionStorage.getItem("idEntreprise"))
+    console.log(this.idEntreprise)
+
 
     //RECUPERATION ET ENREGISTREMENT DE L'ENTREPRISE 
     this.serviceEntreprise.getEntreprise(this.idEntreprise).subscribe((param) => {
-      console.log(param)
       this.entreprise = param;
-      // par defaut, on enlève une potentiel entreprise present
+      console.log(this.entreprise)
+      // par defaut, on enlève une potentiel entreprise presente
      window.sessionStorage.removeItem("entreprise");
      // on enregistre celui qu'on veut conserver
      window.sessionStorage.setItem("entreprise", JSON.stringify(this.entreprise));
      console.log(window.sessionStorage.getItem("entreprise"))
     });
+
     //RECUPERATION ET ENREGISTREMENT DES PRODUITS
     this.serviceProduit.getAllProduit(this.idEntreprise).subscribe((param) => {
       this.listProduits = param;
+      console.log(param)
        // par defaut, on enlève un potentiel produit present
      window.sessionStorage.removeItem("produitEntreprise");
      // on enregistre celui qu'on veut conserver
      window.sessionStorage.setItem("produitEntreprise", JSON.stringify(this.listProduits));
-     console.log(window.sessionStorage.getItem("produitEntreprise"))
-      console.log(param)
     });
-    //RECUPERATION ET ENREGISTREMENT DES CLIENTS 
 
+    //RECUPERATION ET ENREGISTREMENT DES CLIENTS 
     this.serviceClient.getAllClient(this.idEntreprise).subscribe((param) => {
       this.listClients = param;
+      console.log(this.listClients)
        // par defaut, on enlève un potentiel client present
      window.sessionStorage.removeItem("clientEntreprise");
      // on enregistre celui qu'on veut conserver
      window.sessionStorage.setItem("clientEntreprise", JSON.stringify(this.listClients));
-     console.log(window.sessionStorage.getItem("clientEntreprise"))
       console.log(param)
     });
+
+     //RECUPERATION ET ENREGISTREMENT DES FACTURES 
+     this.serviceFacture.getAllFacture(this.idEntreprise).subscribe((param)=>{
+      console.log(param);
+      this.listFactures = param;
+    })
   }
   public initForm() {
     this.form = this.fb.group({
@@ -207,10 +219,6 @@ export class GererEntrepriseComponent implements OnInit {
      window.sessionStorage.setItem("client", JSON.stringify(client));
     this.displayMenu =! this.displayMenu;
   }
-  //FONCTION POUR VOIR LE FORMULAIRE DE FACTURE
-  public displayFormFacture(){
-    this.formFacture =! this.formFacture
-  }
   public clientDetail: ClientEnregistrer;
 
   //FONCTION POUR VOIR LE DETAIL DU CLIENT
@@ -219,11 +227,12 @@ export class GererEntrepriseComponent implements OnInit {
     this.displayDetails =! this.displayDetails;
   }
 // FONCTION POUR FAIRE TELECHARGER LE PDF
-  public telecharger(){
+  public telecharger(idFacture:number ){
+    window.open("http://localhost:8080/pdf/getPdf/"+idFacture, "_blank");
 
-    this.servicePdf.getPdf().subscribe((param)=>{
+    // this.servicePdf.getPdf(idFacture).subscribe((param)=>{
       
-      console.log(param);
-    });
+    //   console.log(param);
+    // });
   }
 }
