@@ -12,10 +12,10 @@ export class ServicePdf {
             'Content-Type': 'application/pdf'
         })
     }
-    public urlBack: string = "http://localhost:8080/pdf/";
+    public urlBack: string = "http://localhost:8080/fichiers/";
 
-    public getPdf(idFacture : number){
+    public getPdf(nomFichier : string ):any{
 
-        return this.http.get(this.urlBack + `getPdf/${idFacture}`,this.httpOptions);
+        return this.http.get(this.urlBack + `fichier/${nomFichier}`,{responseType: 'arraybuffer'});
     }
 }

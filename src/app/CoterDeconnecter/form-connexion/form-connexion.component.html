@@ -1,33 +1,64 @@
-<section class="section">
-    <div class="container-fluid col-12 center">
-        <p class="container col-3 center mt-4">
-            je souhaite
-            <a [routerLink]="['/inscription']">m'inscrire</a>
-        </p>
-    </div>
-    <form (ngSubmit)="form.valid && onSubmit()" class="container-fluid h-100" class="container-fluid h-100"
-        [formGroup]="form">
-        <div class="container center col-3">
-            <h1 class="h2 mb-3">CONNEXION</h1>
-        </div>
-        <div class="form-floating col-3 mb-4 container center">
-            <input type="email" class="form-control" id="floatingInput" placeholder="Votre email"
-                formControlName="email" />
-        </div>
-        <div class="form-floating col-3 mb-4 container center">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Mot de passe"
-                formControlName="motdepasse" />
+<div class="bg-gradient-primary h-100">
+
+    <div class="container">
+
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
+
+            <div class="col-xl-10 col-lg-12 col-md-9">
+
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row">
+                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                            <div class="col-lg-6">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4">Content de te revoir!</h1>
+                                    </div>
+                                    <form class="user" (ngSubmit)="form.valid && onSubmit()" [formGroup]="form">
+                                        <div class="form-group">
+                                            <input type="email" class="form-control form-control-user"
+                                                id="exampleInputEmail" aria-describedby="emailHelp"
+                                                placeholder="Entrer votre Email..." formControlName="email">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control form-control-user"
+                                                id="exampleInputPassword" placeholder="Mot de passe"
+                                                formControlName="motdepasse">
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox small">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck">
+                                                <label class="custom-control-label" for="customCheck">Souviens-toi de
+                                                    moi</label>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-user btn-block">
+                                            Connexion
+                                        </button>
+                                        <hr>
+                                        <span>{{messageError}}</span>
+
+                                    </form>
+                                    <hr>
+                                    <div class="text-center">
+                                        <a class="small" [routerLink]="['/mdpOublier']">Mot de passe oublier ?</a>
+                                    </div>
+                                    <div class="text-center">
+                                        <a class="small" [routerLink]="['/inscription']">Créer un compte!</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
 
-        <div class="checkbox col-3 mb-3 container center">
-            <input class="mr-2" type="checkbox" value="remember-me" />
-            <font style="vertical-align: inherit">Se souvenir de moi</font>
-        </div>
-        <div class="col-3 container center">
-            <button class="btn btn-lg btn-primary" type="submit">
-                <font style="vertical-align: inherit">S'identifier</font>
-            </button>
-        </div>
-        <span>{{messageError}}</span>
-    </form>
-</section>
+    </div>
+
+</div>

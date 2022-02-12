@@ -1,5 +1,7 @@
+import { MotDePasseOublierComponent } from './CoterDeconnecter/mot-de-passe-oublier/mot-de-passe-oublier.component';
+import { NotFoundComponent } from './CoterDeconnecter/not-found/not-found.component';
+import { AccueilComponent } from './CoterDeconnecter/accueil/accueil.component';
 import { GererEntrepriseComponent } from './CoterConnecter/gerer-entreprise/gerer-entreprise.component';
-import { FormEntrepriseComponent } from './CoterConnecter/form-entreprise/form-entreprise.component';
 import { GuardUserGuard } from './Guard/guard-user.guard';
 import { NouscontacterComponent } from './CoterDeconnecter/nouscontacter/nouscontacter.component';
 import { InscriptionComponent } from './CoterDeconnecter/inscription/inscription.component';
@@ -12,10 +14,12 @@ export const ROUTES: Routes = [
   { path: 'connexion', component: FormConnexionComponent },
   { path: 'inscription', component: InscriptionComponent },
   { path: 'nouscontacter', component: NouscontacterComponent },
-  { path: 'profil', component: ProfilComponent, canActivate: [GuardUserGuard] },
+  { path: 'Accueil', component: AccueilComponent },
+  { path: '', component: AccueilComponent },
   { path: 'activation', component: ActivationComponent },
+  { path: 'mdpOublier', component: MotDePasseOublierComponent },
+  { path: 'profil', component: ProfilComponent, canActivate: [GuardUserGuard]},
   { path: 'formFacture', component: FormFactureComponent, canActivate: [GuardUserGuard] },
-  { path: 'entreprise', component: FormEntrepriseComponent,  canActivate: [GuardUserGuard] },
   { path: 'GererEntreprise', component: GererEntrepriseComponent,  canActivate: [GuardUserGuard] },
-  { path: '', component: FormConnexionComponent },
+  { path: '**', component: NotFoundComponent },
 ];

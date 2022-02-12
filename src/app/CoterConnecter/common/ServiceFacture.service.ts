@@ -22,7 +22,7 @@ export class ServiceFacture {
     }
 
     public enregistrerFacture(facture:Facture, idEntreprise:number): Observable<any> {
-        console.log(facture)
+        console.log(facture.numeroCommande)
         let numeroFacture = facture.numeroFacture
         let produit :any[] = facture.produit
         let nomClient : string = facture.nomClient

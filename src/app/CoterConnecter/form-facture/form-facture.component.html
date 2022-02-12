@@ -1,97 +1,144 @@
-<form class="form-group mt-5" [formGroup]="formChoixClient" (ngSubmit)="formChoixClient.valid && onSubmit()">
-  <div class="mb-2 col-6 w-100 d-flex flex-column justify-content-center">
-    <button type="button" class="col-10 btn btn-info">
-      Selectionner le client
-    </button>
-    <select class="btn btn-outline-primary col-10 border border-primary" formControlName="clientChoisi"
-    (change)="getClient(formChoixClient.get('clientChoisi').value)">
-      <option *ngFor="let item of client;let i=index" >
-        {{item.nom | uppercase}}
-      </option>
-    </select>
-  </div>
-</form>
-<div class="mb-2 col-6 w-100 d-flex mt-3 ">
-  <button type="button" class="col-10 btn btn-info" (click)="ajoutChamp()">
-    Ajouter un produit
-  </button>
-</div>
-<form class="form-group mt-5" [formGroup]="form" (ngSubmit)="form.valid && onSubmit()">
-
-  <div formArrayName="champ" class="d-flex col-12 justify-content-center align-items-center flex-column">
-
-    <div *ngFor="let item of champ.controls; let i=index">
-      <div [formGroupName]="i" class="row mb-5">
-
-        <div class="d-flex col ml-3 flex-column justify-content-center">
-          <label class="col-2">Désignation</label>
-          <select class="form-control col" type="text" formControlName="designation"
-            (change)="getPrice(form.get('champ').value[i].designation,i)">
-            <option *ngFor="let prod of produit">{{prod.designation| uppercase}}</option>
+<div class="d-flex justify-content-center align-items-center h-100">
+  <div class="text-light card shadow p-5 w-75 ">
+    <!-- formulaire de client et numero de commande -->
+    <div class="d-flex justify-content-around"> 
+      <form class="form-group col" [formGroup]="formChoixClient" (ngSubmit)="formChoixClient.valid && onSubmit()">
+        <div class="col w-100 d-flex flex-column justify-content-center ">
+          <button type="button" class="col-3 btn btn-info ">
+            Selectionner le client
+          </button>
+          <select class="btn btn-outline-primary col-3 border border-primary bg-light text-dark "
+            formControlName="clientChoisi" (change)="getClient(formChoixClient.get('clientChoisi').value)">
+            <option class="col" *ngFor="let item of client;let i=index">
+              {{item.nom | uppercase}}
+            </option>
           </select>
         </div>
-
-        <div class="d-flex col ml-3 flex-column justify-content-center">
-          <label class="col-md-2">Quantité</label>
-          <input class="form-control col" type="number" formControlName="quantite">
-        </div>
-
-        <div class="d-flex col ml-3 flex-column justify-content-center">
-          <label class="col-2">Prix/U</label>
-          <input class="form-control col" type="number" formControlName="prixUnitaireHT">
-        </div>
-
-        <div class="d-flex col ml-3 flex-column justify-content-center">
-          <label class="col-2 mt-3">Total HT</label>
-          <input class="form-control col" readonly="readonly"
-            value="{{form.get('champ').value[i].quantite * form.get('champ').value[i].prixUnitaireHT}} €">
-        </div>
-        <button type="button" class="btn btn-info" [disabled]="!form.valid" (click)="validLigne(i)">Valider mon
-          article</button>
-        <button class="btn btn-danger" (click)="suppChamp(i)">Supprimer</button>
+      </form>
+    </div>
+    <!-- formulaire des produits -->
+    <form class="form-group mt-3 col d-flex flex-column " [formGroup]="form" (ngSubmit)="form.valid && onSubmit()">
+      <div class="d-flex col w-100  flex-column justify-content-center">
+        <label class="col text-dark">N: Commande</label>
+        <input class="form-control col-3" type="text" formControlName="nCommande">
       </div>
+  
+      <div formArrayName="champ" class="d-flex col align-items-center justify-content-center">
+        <!-- les champ  -->
+        <div class="d-flex flex-column">
+          <div *ngFor="let item of champ.controls; let i=index">
+            <div [formGroupName]="i" class="row mt-5 mb-5">
+              <!-- designation -->
+              <div class="d-flex col ml-3 flex-column justify-content-center">
+                <label class="col">Désignation</label>
+                <select class="form-control col" type="text" formControlName="designation"
+                  (change)="getPrice(form.get('champ').value[i].designation,i)">
+                  <option *ngFor="let prod of produit">{{prod.designation| uppercase}}</option>
+                </select>
+              </div>
+              <!-- quantite -->
+              <div class="d-flex col ml-3 flex-column justify-content-center">
+                <label class="col">Quantité</label>
+                <input class="form-control col" type="number" formControlName="quantite">
+              </div>
+              <!-- prix -->
+              <div class="d-flex col ml-3 flex-column justify-content-center">
+                <label class="col">Prix/U</label>
+                <input class="form-control col" formControlName="prixUnitaireHT">
+              </div>
+              <!-- total -->
+              <div class="d-flex col ml-3 flex-column justify-content-center">
+                <label class="col">Total HT</label>
+                <input class="form-control col text-dark" readonly="readonly"
+                  value="{{form.get('champ').value[i].quantite * form.get('champ').value[i].prixUnitaireHT}} €">
+              </div>
+              <!-- buttons valide et supprime de chaque ligne -->
+              <div class="d-flex justify-content-around align-items-end">
+                <!-- button valider ligne -->
+                <a class=" btn btn-info col mr-1 h-50 d-flex justify-content-center align-items-center"
+                  (click)="validLigne(i)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2"
+                    viewBox="0 0 16 16">
+                    <path
+                      d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                  </svg>
+                </a>
+                <!-- button suprimer ligne -->
+                <a class="btn btn-danger col ml-1 h-50 d-flex justify-content-center align-items-center"
+                  (click)="suppChamp(i)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg"
+                    viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                      d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z" />
+                    <path fill-rule="evenodd"
+                      d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z" />
+                  </svg>
+                </a>
+              </div>
+  
+            </div>
+          </div>
+        </div>
+  
+      </div>
+  
+  
+      <div class="row justify-content-around" *ngFor="let item of tableauLigneDeFacture">
+        <div class="column">
+          <label for="">Designation</label>
+          <p>{{item.designation | uppercase}}</p>
+        </div>
+        <div class="column">
+          <label for="">Quantiter</label>
+          <p>{{item.quantite}}</p>
+        </div>
+        <div class="column">
+          <label for="">Prix HT</label>
+          <p>{{item.prix }} €</p>
+        </div>
+        <div class="column">
+          <label for="">Total HT</label>
+          <p>{{item.quantite * item.prix }} €</p>
+        </div>
+        <div class="column">
+          <label for="">Total TTC</label>
+          <p>{{item.quantite * item.prix * 1.2 }} €</p>
+        </div>
+        <div class="column">
+          <label for="">TVA</label>
+          <p>20% €</p>
+        </div>
+      </div>
+  
+      <div *ngIf="champ.controls.length > 0">
+        Total TTC:{{totalFactureTTC}}
+      </div>
+      <div *ngIf="champ.controls.length > 0" class="mt-5 mb-5 h-50">
+  
+      </div>
+      <div class="d-flex flex-column align-items-center">
+        <div class="col d-flex justify-content-center">
+          <p class="bg-danger col-6 d-flex justify-content-center">
+            {{messageErreur}}
+          </p>
+        </div>
+        <div class="col-3">
+          <button type="button" class="col btn btn-info mb-3 mt-3" (click)="ajoutChamp()">
+            Ajouter un article
+          </button>
+        </div>
+        <div class="col-3" *ngIf="champ.controls.length > 0">
+          <button class="btn btn-primary col" [disabled]="!form.valid" type="submit">Valider ma facture</button>
+        </div>
+      </div>
+  
+    </form>
+    <hr class="divider margin">
+    <hr class="divider margin">
+  
+  
+    <div class="d-flex justify-content-around mb-5">
+      <button class="btn btn-info">Envoyer un email</button>
     </div>
   </div>
-
-  <div class="row justify-content-around" *ngFor="let item of tableauLigneDeFacture">
-    <div class="column">
-      <label for="">Designation</label>
-      <p>{{item.designation | uppercase}}</p>
-    </div>
-    <div class="column">
-      <label for="">Quantiter</label>
-      <p>{{item.quantite}}</p>
-    </div>
-    <div class="column">
-      <label for="">Prix HT</label>
-      <p>{{item.prix }} €</p>
-    </div>
-    <div class="column">
-      <label for="">Total HT</label>
-      <p>{{item.quantite * item.prix }} €</p>
-    </div>
-    <div class="column">
-      <label for="">Total TTC</label>
-      <p>{{item.quantite * item.prix * 1.2 }} €</p>
-    </div>
-    <div class="column">
-      <label for="">TVA</label>
-      <p>20% €</p>
-    </div>
-  </div>
-  <div *ngIf="champ.controls.length > 0">
-    Total TTC:{{totalFactureTTC}}
-  </div>
-
-  <p class="d-flex justify-content-center" *ngIf="champ.controls.length > 0">
-
-    <button class="btn btn-primary" [disabled]="!form.valid" type="submit">Valider ma facture</button>
-  </p>
-
-</form>
-<hr class="divider margin">
-<hr class="divider margin">
-
-<div class="d-flex justify-content-around mb-5" >                     
-  <button class="btn btn-info">Envoyer un email</button>
 </div>

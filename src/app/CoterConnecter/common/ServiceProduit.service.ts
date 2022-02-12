@@ -20,14 +20,20 @@ export class ServiceProduit {
 
     }
 
-    public enregistrerProduits(produit:ProduitEnregistrer[],idEntreprise:number){
+    public enregistrerProduits(produit: ProduitEnregistrer, idEntreprise: number) {
 
-        return this.http.post<ProduitEnregistrer>(this.urlBack + `enregistrerProduit/${idEntreprise}`, produit ,this.httpOptions);
+        return this.http.post<ProduitEnregistrer>(this.urlBack + `enregistrerProduit/${idEntreprise}`, produit, this.httpOptions);
 
     }
 
-    public getAllProduit(idEntreprise:number ):Observable<any>{
+    public getAllProduit(idEntreprise: number): Observable<any> {
 
         return this.http.get(this.urlBack + `AllProduits/${idEntreprise}`);
+    }
+    public miseAJour(produit: ProduitEnregistrer, idProduit: number): Observable<any> {
+        return this.http.put(this.urlBack + `maJProduit/${idProduit}`, produit,this.httpOptions);
+    }
+    public supprimerProduit( idProduit: number):Observable<any> {
+        return this.http.delete(this.urlBack + `supprimerProduit/${idProduit}`,this.httpOptions);
     }
 }

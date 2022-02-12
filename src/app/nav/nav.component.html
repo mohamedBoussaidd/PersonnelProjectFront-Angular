@@ -1,35 +1,74 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
+<nav class="navbar navbar-expand-lg navbar-light ">
+    <div class="container-fluid ">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- NAVIGATION COTER PUBLIC -->
-            <ul *ngIf="!isConnected" class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul *ngIf="!estConnected" class="navbar-nav me-auto mb-2 mb-lg-0 ">
                 <li class="nav-item">
-                    <a class="nav-link" [routerLink]="['/connexion']">CONNEXION</a>
+                    <a class="nav-link text-white" [routerLink]="['/Accueil']">ACCUEIL</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link text-white " [routerLink]="['/connexion']">S'IDENTIFIER</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" [routerLink]="['/inscription']">INSCRIPTION</a>
+                    <a class="nav-link text-white" [routerLink]="['/inscription']">INSCRIPTION</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" [routerLink]="['/nouscontacter']">CONTACTER</a>
+                    <a class="nav-link text-white" [routerLink]="['/nouscontacter']">CONTACTER</a>
                 </li>
             </ul>
             <!-- NAVIGATION COTER PRIVER -->
-            <ul *ngIf="isConnected" class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" [routerLink]="['/profil']">ACCUEIL</a>
-                </li>
-                 <li class="nav-item">
-                    <a class="nav-link" [routerLink]="['/formFacture']">CRÉE UNE FACTURE</a>
-                </li> 
-                <!-- <li class="nav-item">
-                    <a class="nav-link" [routerLink]="['']">CRÉE UN DEVIS</a>
-                </li> -->
-                <li class="nav-item">
-                    <a class="nav-link" [routerLink]="['/GererEntreprise']" >MA GESTION</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" (click)="deconnexion()">DÉCONNEXION</a>
-                </li>
+            <ul *ngIf="estConnected" class="navbar-nav me-auto mb-2 mb-lg-0 d-flex justify-content-between w-100">
+                <div class="nav-item d-flex">
+                    <li class="nav-item">
+                        <a class="nav-link text-white " [routerLink]="['/profil']">ACCUEIL</a>
+                    </li>
+                    <li class="nav-item" *ngIf="entrepriseSelectionne">
+                        <a class="nav-link text-white" [routerLink]="['/GererEntreprise']">MA GESTION</a>
+                    </li>
+                    <li class="nav-item" *ngIf="entrepriseSelectionne">
+                        <a class="nav-link text-white" [routerLink]="['/formFacture']">CRÉE UNE FACTURE</a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['']">CRÉE UN DEVIS</a>
+                    </li> -->
+                    <li class="nav-item">
+                        <a class="nav-link text-white" (click)="deconnexion()">DÉCONNEXION</a>
+                    </li>
+                </div>
+                <!--  -->
+                <!-- Topbar -->
+                <div>
+                    <li class="nav-item d-flex ">
+                        <!-- Topbar Navbar -->
+                        <ul class="navbar-nav ml-auto">
+                            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                            <li class="nav-item dropdown no-arrow d-sm-none">
+                                <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-search fa-fw"></i>
+                                </a>
+                                <!-- Dropdown - Messages -->
+                                <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                    aria-labelledby="searchDropdown">
+                                    <form class="form-inline mr-auto w-100 navbar-search">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control bg-light border-0 small"
+                                                placeholder="Search for..." aria-label="Search"
+                                                aria-describedby="basic-addon2">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary" type="button">
+                                                    <i class="fas fa-search fa-sm"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </li>
+
+                            <div class="topbar-divider d-none d-sm-block"></div>
+                        </ul>
+                    </li>
+                </div>
             </ul>
         </div>
     </div>

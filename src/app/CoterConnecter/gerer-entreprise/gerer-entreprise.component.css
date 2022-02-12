@@ -13,3 +13,10 @@
 	border:3px solid transparent;
 	display:none;
 }
+*{
+	color:black;
+}
+#listnav{
+	min-height:100%;
+}
+

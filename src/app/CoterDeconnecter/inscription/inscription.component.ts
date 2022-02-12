@@ -68,12 +68,12 @@ export class InscriptionComponent implements OnInit {
       this.serviceUser.inserUser(this.utilisateur)
         .subscribe((param: any) => {
           this.messageErrorOuReussi = param.message;
+          console.log(param);
           this.route.navigate(['/connexion'])
         },
-          error => this.messageErrorOuReussi = error.error.message)
-          window.location.reload()
-    } else {
-
+          (error) => this.messageErrorOuReussi = error.error.message)
+          console.log(this.messageErrorOuReussi)
+          // window.location.reload()
     }
   }
 }

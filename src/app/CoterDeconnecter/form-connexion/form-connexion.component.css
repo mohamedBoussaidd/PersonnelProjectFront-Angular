@@ -8,4 +8,15 @@ form {
     align-items: center;
     min-height: 668px;
     margin-top: 100px;
+    color:white
 }
+#fond{
+    background: url("../../../assets/images/overlay.png"), url("../../../assets/images/two.jpg");
+    background-size: 256px 256px, cover;
+    background-attachment:fixed, fixed;
+    background-position: top left, center center;
+    /* background-repeat:repeat, no-repeat; */
+    width: 25%;
+    
+}
+

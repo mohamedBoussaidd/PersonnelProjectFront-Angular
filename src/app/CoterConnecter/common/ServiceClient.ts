@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
      providedIn: 'root' 
     })
 export class ServiceClient {
+    
     constructor(private http:HttpClient) { }
 
     httpOptions = {
@@ -17,7 +18,7 @@ export class ServiceClient {
     public urlBack: string = "http://localhost:8080/client/";
 
 
-    public enregistrerClients(client:ClientEnregistrer[],idEntreprise:number){
+    public enregistrerClients(client:ClientEnregistrer,idEntreprise:number){
 
         return this.http.post<ClientEnregistrer>(this.urlBack + `enregistrerClient/${idEntreprise}`, client ,this.httpOptions);
 
@@ -25,5 +26,11 @@ export class ServiceClient {
     public getAllClient(idEntreprise:number ):Observable<any>{
 
         return this.http.get(this.urlBack + `AllClient/${idEntreprise}`);
+    }
+    public miseAJour(client: ClientEnregistrer, idClient: number):Observable<any> {
+        return this.http.put(this.urlBack + `maJClient/${idClient}`, client,this.httpOptions);
+    }
+    public supprimerClient( idClient: number):Observable<any> {
+        return this.http.delete(this.urlBack + `supprimerClient/${idClient}`,this.httpOptions);
     }
 }

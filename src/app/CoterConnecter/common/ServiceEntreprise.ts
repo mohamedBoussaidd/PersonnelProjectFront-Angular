@@ -29,4 +29,7 @@ export class ServiceEntreprise {
         
         return this.http.get(this.urlBack + `entrepriseById/${entrepriseId}`);
     }
+    public supprimerEntreprise( idEntreprise: number):Observable<any> {
+        return this.http.delete(this.urlBack + `supprimerEntreprise/${idEntreprise}`,this.httpOptions);
+    }
 }
